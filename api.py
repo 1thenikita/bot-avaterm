@@ -142,11 +142,30 @@ app = Flask(__name__)
 
 bots = Bot()
 
-@app.route("/")
+# Задаем параметры приложения Flask.
+@app.route("/", methods=['POST'])
+
 def main():
-    res = make_response(render_template('index.html'))
-    res.set_cookie("id_user", str(randint(0, 100000000)), max_age=60*60*24)
-    return res
+# Функция получает тело запроса и возвращает ответ.
+    logging.info('Request: %r', request.json)
+
+    response = {
+        "version": request.json['version'],
+        "session": request.json['session'],
+        "response": {
+            "end_session": False
+        }
+    }
+
+    handle_dialog(request.json, response)
+
+    logging.info('Response: %r', response)
+
+    return json.dumps(
+        response,
+        ensure_ascii=False,
+        indent=2
+    )
 
 
 @app.route('/bot_question', methods=['POST'])
