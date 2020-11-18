@@ -67,7 +67,7 @@ def handle_dialog(req, res):
         }
 
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
-        res['response']['buttons'] = get_suggests(user_id, 'suggests')
+        res['response']['buttons'] = get_suggests(user_id)
         return
 
     # Обрабатываем ответ пользователя.
@@ -83,20 +83,20 @@ def handle_dialog(req, res):
     res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
         req['request']['original_utterance']
     )
-    res['response']['buttons'] = get_suggests(user_id, 'suggests')
+    res['response']['buttons'] = get_suggests(user_id)
 
 # Функция возвращает две подсказки для ответа.
-def get_suggests(user_id, suggest_use):
+def get_suggests(user_id):
     session = sessionStorage[user_id]
 
     # Выбираем две первые подсказки из массива.
     suggests = [
         {'title': suggest, 'hide': True}
-        for suggest in session[suggest_use][:2]
+        for suggest in session['suggests'][:2]
     ]
 
     # Убираем первую подсказку, чтобы подсказки менялись каждый раз.
-    session[suggest_use] = session[suggest_use][1:]
+    session['suggests'] = session['suggests'][1:]
     sessionStorage[user_id] = session
 
     return suggests
