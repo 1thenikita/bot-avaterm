@@ -54,6 +54,16 @@ def handle_dialog(req, res):
                 "Да",
                 "Нет",
             ]
+            'suggets2': [
+                "Рублённое бревно",
+                "Оцилиндрованное бревно",
+                "Клееный брус",
+                "Профилированный брус",
+            ]
+            'suggets3': [
+                "Для первого венца",
+                "Для последующих",
+            ]
         }
 
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
@@ -62,10 +72,8 @@ def handle_dialog(req, res):
 
     # Обрабатываем ответ пользователя.
     if req['request']['original_utterance'].lower() in [
-        'да',
         'нет',
-        'Да',
-        'нет',
+        'Нет',
     ]:
         # Пользователь согласился, прощаемся.
         res['response']['text'] = 'Слона можно найти на Яндекс.Маркете!'
@@ -75,29 +83,20 @@ def handle_dialog(req, res):
     res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
         req['request']['original_utterance']
     )
-    res['response']['buttons'] = get_suggests(user_id)
+    res['response']['buttons'] = get_suggests(user_id, suggest)
 
 # Функция возвращает две подсказки для ответа.
-def get_suggests(user_id):
+def get_suggests(user_id, suggest_use):
     session = sessionStorage[user_id]
 
     # Выбираем две первые подсказки из массива.
     suggests = [
         {'title': suggest, 'hide': True}
-        for suggest in session['suggests'][:2]
+        for suggest in session[suggest_use][:2]
     ]
 
     # Убираем первую подсказку, чтобы подсказки менялись каждый раз.
-    session['suggests'] = session['suggests'][1:]
+    session[suggest_use] = session[suggest_use][1:]
     sessionStorage[user_id] = session
-
-    # Если осталась только одна подсказка, предлагаем подсказку
-    # со ссылкой на Яндекс.Маркет.
-    if len(suggests) < 2:
-        suggests.append({
-            "title": "Ладно",
-            "url": "https://market.yandex.ru/search?text=слон",
-            "hide": True
-        })
 
     return suggests
