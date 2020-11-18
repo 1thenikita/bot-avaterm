@@ -67,7 +67,7 @@ def handle_dialog(req, res):
         }
 
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
-        res['response']['buttons'] = get_suggests(user_id)
+        res['response']['buttons'] = get_suggests(user_id, 'suggests')
         return
 
     # Обрабатываем ответ пользователя.
@@ -83,7 +83,7 @@ def handle_dialog(req, res):
     res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
         req['request']['original_utterance']
     )
-    res['response']['buttons'] = get_suggests(user_id, suggest)
+    res['response']['buttons'] = get_suggests(user_id, 'suggests')
 
 # Функция возвращает две подсказки для ответа.
 def get_suggests(user_id, suggest_use):
