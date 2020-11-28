@@ -100,9 +100,19 @@ def get_suggests(user_id, suggest):
     # Выбираем подсказки из массива.
     suggests = [
         {'title': suggest, 'hide': True}
+        for suggest in session[buttons]
     ]
 
-    session[f'{suggest}']
-    sessionStorage[user_id] = session
+    return suggests
+
+# Функция возвращает подсказки для ответа.
+def get_buttons(user_id, buttons):
+    session = sessionStorage[user_id]
+
+    # Выбираем подсказки из массива.
+    suggests = [
+        {'title': suggest, 'hide': True}
+        for suggest in session[buttons]
+    ]
 
     return suggests
