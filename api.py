@@ -67,36 +67,42 @@ def handle_dialog(req, res):
         }
 
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
-        res['response']['buttons'] = get_suggests(user_id)
+        res['response']['buttons'] = get_suggests(user_id, 'suggests')
         return
 
-    # Обрабатываем ответ пользователя.
+    # Обрабатываем ответ пользователя на нет.
     if req['request']['original_utterance'].lower() in [
         'нет',
         'Нет',
     ]:
-        # Пользователь согласился, прощаемся.
-        res['response']['text'] = 'Слона можно найти на Яндекс.Маркете!'
+        # Пользователь отказался, попытка номер 2
+        res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
         return
 
-    # Если нет, то убеждаем его купить слона!
-    res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
-        req['request']['original_utterance']
-    )
-    res['response']['buttons'] = get_suggests(user_id)
+    # Обрабатываем ответ пользователя.
+    if req['request']['original_utterance'].lower() in [
+        'да',
+        'Да',
+    ]:
+        # Пользователь согласился, прощаемся.
+        res['response']['text'] = 'Вы согласились, молодец!'
+        return
+    # # Если нет, то убеждаем его купить слона!
+    # res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
+    #     req['request']['original_utterance']
+    # )
+    # res['response']['buttons'] = get_suggests(user_id)
 
-# Функция возвращает две подсказки для ответа.
-def get_suggests(user_id):
+# Функция возвращает подсказки для ответа.
+def get_suggests(user_id, suggest):
     session = sessionStorage[user_id]
 
-    # Выбираем две первые подсказки из массива.
+    # Выбираем подсказки из массива.
     suggests = [
         {'title': suggest, 'hide': True}
-        for suggest in session['suggests'][:2]
     ]
 
-    # Убираем первую подсказку, чтобы подсказки менялись каждый раз.
-    session['suggests'] = session['suggests'][1:]
+    session[f'{suggest}']
     sessionStorage[user_id] = session
 
     return suggests
