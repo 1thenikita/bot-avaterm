@@ -96,6 +96,11 @@ def handle_dialog(req, res):
 
 # Функция возвращает подсказки для ответа.
 def get_suggests(user_id, _suggest):
+    session = sessionStorage[user_id]
+
+    # Выбираем две первые подсказки из массива.
+    suggests = []
+
     for i in range(len(_suggest)):
         suggests.append({
             "title": _suggest[i],
