@@ -70,7 +70,9 @@ def handle_dialog(req, res):
 
     # Обрабатываем ответ пользователя на нет.
     if req['request']['original_utterance'].lower() in [
-        'нет'
+        'нет',
+        'не нужн',
+        'не надо'
     ]:
         # Пользователь отказался, попытка номер 2
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
@@ -79,7 +81,10 @@ def handle_dialog(req, res):
 
     # Обрабатываем ответ пользователя на да.
     if req['request']['original_utterance'].lower() in [
-        'да'
+        'да',
+        'нужн',
+        'необходим',
+        'надо'
     ]:
         # Пользователь согласился, узнаём для какого венца.
         res['response']['text'] = 'Утеплитель необходим для первого венца, или – для последующих?'
@@ -138,7 +143,7 @@ def handle_dialog(req, res):
     
     try:
         # Обрабатываем ответ пользователя на последующие венцы.
-        if int(req['request']['original_utterance']):
+        if int(req['request']['original_utterance']str.replace('.', '')):
             add_answers(user_id, int(req['request']['original_utterance']))
             res['response']['text'] = int(req['request']['original_utterance'])
             return
