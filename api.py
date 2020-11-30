@@ -143,7 +143,7 @@ def handle_dialog(req, res):
     
     try:
         # Обрабатываем ответ пользователя на последующие венцы.
-        if int(req['request']['original_utterance']str.replace('.', '')):
+        if int(req['request']['original_utterance'].replace('.', '')):
             add_answers(user_id, int(req['request']['original_utterance']))
             res['response']['text'] = int(req['request']['original_utterance'])
             return
