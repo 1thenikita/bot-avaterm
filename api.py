@@ -139,7 +139,8 @@ def handle_dialog(req, res):
     try:
         # Обрабатываем ответ пользователя на последующие венцы.
         if int(req['request']['original_utterance']):
-            res['response']['text'] = 'Вы ввели число, лол.'
+            add_answers(user_id, int(req['request']['original_utterance']))
+            res['response']['text'] = int(req['request']['original_utterance'])
             return
     except ValueError:
         res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
