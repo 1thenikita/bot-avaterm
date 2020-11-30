@@ -50,7 +50,7 @@ def handle_dialog(req, res):
         # Инициализируем сессию и поприветствуем его.
 
         sessionStorage[user_id] = {
-            'suggests': []
+            'suggests': [],
             # 'suggets2': [
             #     "Рублённое бревно",
             #     "Оцилиндрованное бревно",
