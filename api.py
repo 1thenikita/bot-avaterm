@@ -136,16 +136,43 @@ def handle_dialog(req, res):
     ]:
         # Пользователь согласился, узнаём для какого венца.
         # Записываем его ответ для последующей обработки.
-        add_answers(user_id, req['request']['original_utterance'].lower())
+        add_answers(user_id, 'последующий венец')
 
-        res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
+        res['response']['text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
         return
-    
+
     try:
-        # Обрабатываем ответ пользователя на последующие венцы.
-        if int(req['request']['original_utterance'].replace('.', '')):
-            add_answers(user_id, int(req['request']['original_utterance']))
-            res['response']['text'] = int(req['request']['original_utterance'])
+        # Обрабатываем ответ пользователя на числа.
+        dlina = float(req['request']['original_utterance'])
+        add_answers(user_id, dlina)
+        res['response']['text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей.'
+        return
+    except ValueError:
+        res['response']['text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей.'
+        return
+
+    try:
+        # Обрабатываем ответ пользователя на числа.
+        dlina = float(req['request']['original_utterance'])
+        add_answers(user_id, dlina) # TODO: отсюда начать исправлять
+        res['response']['text'] = 'Вот наиболее подходящие Вам варианты утеплителей. Выберите пожалуйста 1 вариант.<br><br>Выберите необходимую вам толщину утеплителя – 10мм, 20мм либо 30мм.'
+        return
+    except ValueError:
+        res['response']['text'] = 'Вот наиболее подходящие Вам варианты утеплителей. Выберите пожалуйста 1 вариант.<br><br>Выберите необходимую вам толщину утеплителя – 10мм, 20мм либо 30мм.'
+        return
+
+
+    try:
+        # Обрабатываем ответ пользователя на числа.
+        mm1 = int(float(req['request']['original_utterance']))
+
+        # Если число подходит по параметрам, продолжаем.
+        if(30 <= mm1 <= 350):
+            add_answers(user_id, mm1)
+            res['response']['text'] = 
+            return
+        else:
+            res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
             return
     except ValueError:
         res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
@@ -194,6 +221,7 @@ def get_url_suggests(user_id, _suggest):
     # Возвращаем подсказки
     return suggests
 
+# Добавляем ответы пользователей
 def add_answers(user_id, answers):
     # Открываем сессию пользователя
     session = sessionStorage[user_id]
@@ -208,6 +236,7 @@ def add_answers(user_id, answers):
     # Возвращаем ответы
     return answers
 
+# Получаем ответы пользователей
 def get_answers(user_id, answers):
     # Открываем сессию пользователя
     session = sessionStorage[user_id]
