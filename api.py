@@ -75,6 +75,7 @@ def handle_dialog(req, res):
         'не надо'
     ]:
         # Пользователь отказался, попытка номер 2
+        res['response']['text'] = 'Хорошо, в таком случае – я буду рядом и помогу Вам на этапах оформления покупки и доставки.'
         res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
         res['response']['buttons'] = get_suggests(user_id, ['Да', 'Нет'])
         return
@@ -162,20 +163,20 @@ def handle_dialog(req, res):
         return
 
 
-    try:
-        # Обрабатываем ответ пользователя на числа.
-        mm1 = int(float(req['request']['original_utterance']))
+    # try:
+    #     # Обрабатываем ответ пользователя на числа.
+    #     mm1 = int(float(req['request']['original_utterance']))
 
-        # Если число подходит по параметрам, продолжаем.
-        if(30 <= mm1 <= 350):
-            add_answers(user_id, mm1)
-            res['response']['text'] = 
-            return
-        else:
-            res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
-            return
-    except ValueError:
-        res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
+    #     # Если число подходит по параметрам, продолжаем.
+    #     if(30 <= mm1 <= 350):
+    #         add_answers(user_id, mm1)
+    #         res['response']['text'] = 
+    #         return
+    #     else:
+    #         res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
+    #         return
+    # except ValueError:
+    #     res['response']['text'] = 'Введите число в диапазоне от 30 до 350 мм.'
 
 
     # # Если нет, то убеждаем его купить слона!
