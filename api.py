@@ -64,7 +64,7 @@ def handle_dialog(req, res):
             'answers': []
         }
 
-        res['response']['text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?'
+        res['response']['text'] = 'Здравствуйте!!!! Вам нужна помощь при выборе межвенцового утеплителя?'
         res['response']['buttons'] = get_suggests(user_id, ['Да', 'Нет'])
         return
 
