@@ -62,7 +62,8 @@ def handle_dialog(req, res):
             #     "Для первого венца",
             #     "Для последующих",
             # ]
-            'answers': []
+            'answers': [],
+            'step': 0
         }
 
         res['response'][
@@ -90,6 +91,7 @@ def handle_dialog(req, res):
         'необходим',
         'над'
     ]:
+        step(user_id, '1')
         res['response'][
             'text'] = 'Из какого материала Вы планируете строительство дома?\n\nВозможные варианты ответа: рубленное бревно, оцилиндрованное бревно, клееный брус, профилированный брус'
         # res['response']['buttons'] = get_suggests(user_id, ['Рубленное бревно', 'Оцилиндрованное бревно', 'Клееный брус', 'Профилированный брус'])
@@ -162,7 +164,7 @@ def handle_dialog(req, res):
             'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
         return
 
-    if(len(get_answers(user_id)) <= 2):
+    if len(get_answers(user_id)) <= 2:
         try:
             # Обрабатываем ответ пользователя на числа.
             shirina = int(float(req['request']['original_utterance']))
@@ -207,8 +209,8 @@ def handle_dialog(req, res):
         return
 
     try:
-        if (int(float(req['request']['original_utterance'])) == 15 or int(
-                float(req['request']['original_utterance'])) == 20):
+        if int(float(req['request']['original_utterance'])) == 15 or int(
+                float(req['request']['original_utterance'])) == 20:
             # Обрабатываем ответ пользователя на числа.
             vybor = int(float(req['request']['original_utterance']))
             add_answers(user_id, shirina)
@@ -220,9 +222,9 @@ def handle_dialog(req, res):
         return
 
     try:
-        if (int(float(req['request']['original_utterance'])) == 10 or int(
+        if int(float(req['request']['original_utterance'])) == 10 or int(
                 float(req['request']['original_utterance'])) == 20 or int(
-            float(req['request']['original_utterance'])) == 30):
+            float(req['request']['original_utterance'])) == 30:
             # Обрабатываем ответ пользователя на числа.
             vybor = int(float(req['request']['original_utterance']))
             add_answers(user_id, shirina)
@@ -302,3 +304,32 @@ def get_answers(user_id):
 
     # Возвращаем ответы
     return answers
+
+# Получаем пройденные шаги пользователя
+def step(user_id):
+    session = sessionStorage[user_id]
+    return session['step']
+
+# Прибавливаем шаги пользователю
+def step(user_id, _int):
+    try:
+        session = sessionStorage[user_id]
+        session['step'] += _int
+        return session['step']
+    except ValueError:
+        return
+
+# Прибавливаем или вычитываем шаги пользователю.
+def step(user_id, _int, znak):
+    try:
+        if(znak != '-' and znak != '+'):
+            return
+        else:
+            session = sessionStorage[user_id]
+            if(znak == '-'):
+                session['step'] -= _int
+            elif(znak == '+'):
+                session['step'] += _int
+            return session['step']
+    except ValueError:
+        return
