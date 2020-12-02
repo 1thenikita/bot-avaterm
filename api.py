@@ -152,7 +152,6 @@ def handle_dialog(req, res):
         # Обрабатываем ответ пользователя на числа.
         dlina = int(float(req['request']['original_utterance']))
         add_answers(user_id, dlina)
-        steps = 5
         res['response'][
             'text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей.'
         return
@@ -165,7 +164,6 @@ def handle_dialog(req, res):
         # Обрабатываем ответ пользователя на числа.
         shirina = int(float(req['request']['original_utterance']))
         add_answers(user_id, shirina)
-        steps = 6
         res['response']['text'] = 'Вот наиболее подходящие Вам варианты утеплителей. Выберите пожалуйста 1 вариант.'
         return
     except ValueError:
