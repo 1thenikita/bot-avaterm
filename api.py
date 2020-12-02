@@ -63,7 +63,7 @@ def handle_dialog(req, res):
             #     "Для последующих",
             # ]
             'answers': [],
-            'step': int()
+            'step': int(0)
         }
 
         res['response'][
@@ -90,6 +90,7 @@ def handle_dialog(req, res):
         'необходим',
         'над'
     ]:
+        step(user_id, 1)
         res['response'][
             'text'] = f'Из какого материала Вы планируете строительство дома?\n\nВозможные варианты ответа: рубленное бревно, оцилиндрованное бревно, клееный брус, профилированный брус'
         # res['response']['buttons'] = get_suggests(user_id, ['Рубленное бревно', 'Оцилиндрованное бревно', 'Клееный брус', 'Профилированный брус'])
@@ -324,7 +325,7 @@ def step(user_id):
 def step(user_id, _int):
     try:
         session = sessionStorage[user_id]
-        session['step'] += _int
+        session['step'] = _int
         return session['step']
     except ValueError:
         return
