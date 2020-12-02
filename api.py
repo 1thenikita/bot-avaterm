@@ -111,7 +111,7 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Для первого венца', 'Для последующих венцов'])
         return
 
-    if req['request']['original_utterance'].lower() in [
+    if steps == 2 or req['request']['original_utterance'].lower() in [
         'для первого венца',
         'для первого',
         'первый венец',
