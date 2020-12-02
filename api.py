@@ -327,7 +327,7 @@ def step(user_id, _int):
         session = sessionStorage[user_id]
         session['step'] = _int
         return session['step']
-    except ValueError:
+    except BaseException:
         return
 
 
