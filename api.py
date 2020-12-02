@@ -149,7 +149,7 @@ def handle_dialog(req, res):
         return
 
     try:
-        if (req['request']['original_utterance']).isdigit or steps == 4:
+        if steps == 4:
             # Обрабатываем ответ пользователя на числа.
             dlina = int(float(req['request']['original_utterance']))
             add_answers(user_id, dlina)
