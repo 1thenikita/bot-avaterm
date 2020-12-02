@@ -112,7 +112,7 @@ def handle_dialog(req, res):
             # res['response']['buttons'] = get_suggests(user_id, ['Для первого венца', 'Для последующих венцов'])
             return
 
-    if steps == 2:
+    elif steps == 2:
         # Обрабатываем ответ пользователя на последующие венцы.
         if req['request']['original_utterance'].lower() in [
             'для первого венца',
@@ -130,7 +130,7 @@ def handle_dialog(req, res):
                 'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
             return
 
-    if steps == 3:
+    elif steps == 3:
         # Обрабатываем ответ пользователя на последующие венцы.
         if req['request']['original_utterance'].lower() in [
             'для последующих венцов',
@@ -149,7 +149,7 @@ def handle_dialog(req, res):
                 'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
             return
 
-    if steps == 4:
+    elif steps == 4:
         try:
             # Обрабатываем ответ пользователя на числа.
             dlina = int(float(req['request']['original_utterance']))
@@ -163,7 +163,7 @@ def handle_dialog(req, res):
                 'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
             return
 
-    if steps == 5:
+    elif steps == 5:
         try:
             # Обрабатываем ответ пользователя на числа.
             shirina = int(float(req['request']['original_utterance']))
@@ -176,7 +176,7 @@ def handle_dialog(req, res):
                 'text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей. СТОП2'
             return
 
-    if steps == 6:
+    elif steps == 6:
         # Если выбран клееный брус
         if get_answers(user_id)[1] in [
             'клееный брус',
@@ -307,33 +307,33 @@ def get_answers(user_id):
     return answers
 
 
-# Возвращает пройденные шаги пользователя
-def step(user_id):
-    session = sessionStorage[user_id]
-    return session['step']
-
-
-# Прибавливаем шаги пользователю
-def step(user_id, _int):
-    try:
-        session = sessionStorage[user_id]
-        session['step'] = _int
-        return session['step']
-    except BaseException:
-        return
-
-
-# Прибавливаем или вычитываем шаги пользователю.
-def step(user_id, _int, znak):
-    try:
-        if (znak != '-' and znak != '+'):
-            return
-        else:
-            session = sessionStorage[user_id]
-            if (znak == '-'):
-                session['step'] -= _int
-            elif (znak == '+'):
-                session['step'] += _int
-            return session['step']
-    except ValueError:
-        return
+# # Возвращает пройденные шаги пользователя
+# def step(user_id):
+#     session = sessionStorage[user_id]
+#     return session['step']
+#
+#
+# # Прибавливаем шаги пользователю
+# def step(user_id, _int):
+#     try:
+#         session = sessionStorage[user_id]
+#         session['step'] = _int
+#         return session['step']
+#     except BaseException:
+#         return
+#
+#
+# # Прибавливаем или вычитываем шаги пользователю.
+# def step(user_id, _int, znak):
+#     try:
+#         if (znak != '-' and znak != '+'):
+#             return
+#         else:
+#             session = sessionStorage[user_id]
+#             if (znak == '-'):
+#                 session['step'] -= _int
+#             elif (znak == '+'):
+#                 session['step'] += _int
+#             return session['step']
+#     except ValueError:
+#         return
