@@ -52,16 +52,6 @@ def handle_dialog(req, res):
 
         sessionStorage[user_id] = {
             'suggests': [],
-            # 'suggets2': [
-            #     "Рублённое бревно",
-            #     "Оцилиндрованное бревно",
-            #     "Клееный брус",
-            #     "Профилированный брус",
-            # ]
-            # 'suggets3': [
-            #     "Для первого венца",
-            #     "Для последующих",
-            # ]
             'answers': [],
             'step': int(0)
         }
@@ -84,7 +74,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на да.
-    if req['request']['original_utterance'].lower() in [
+    elif req['request']['original_utterance'].lower() in [
         'да',
         'нужн',
         'необходим',
@@ -94,6 +84,11 @@ def handle_dialog(req, res):
         res['response'][
             'text'] = f'Из какого материала Вы планируете строительство дома?\n\nВозможные варианты ответа: рубленное бревно, оцилиндрованное бревно, клееный брус, профилированный брус'
         # res['response']['buttons'] = get_suggests(user_id, ['Рубленное бревно', 'Оцилиндрованное бревно', 'Клееный брус', 'Профилированный брус'])
+        return
+
+    else:
+        res['response'][
+            'text'] = 'Здравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?\n\nВозможные варианты ответа: Да и Нет'
         return
 
     if step(user_id) == 1:
