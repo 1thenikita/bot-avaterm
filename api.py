@@ -173,65 +173,64 @@ def handle_dialog(req, res):
             'text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей. СТОП2'
         return
 
-    if steps == 6:
-        # Если выбран клееный брус
-        if get_answers(user_id)[1] in [
-            'клееный брус',
-            'клееный',
-            'клеёный'
-        ]:
-            # Пользователь согласился, узнаём для какого венца.
-            res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
-            return
+    # Если выбран клееный брус
+    if get_answers(user_id)[1] in [
+        'клееный брус',
+        'клееный',
+        'клеёный'
+    ]:
+        # Пользователь согласился, узнаём для какого венца.
+        res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
+        return
 
-        elif get_answers(user_id)[1] in [
-            'рубленное бревно',
-            'рубленное',
-            'рубленный',
-            'рублённ'
-        ]:
-            # Пользователь согласился, узнаём для какого венца.
-            res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 10 мм, 20 мм либо 30 мм.'
-            return
+    if get_answers(user_id)[1] in [
+        'рубленное бревно',
+        'рубленное',
+        'рубленный',
+        'рублённ'
+    ]:
+        # Пользователь согласился, узнаём для какого венца.
+        res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 10 мм, 20 мм либо 30 мм.'
+        return
 
-        elif get_answers(user_id)[1] in [
-            'оцилиндрованное бревно',
-            'оцилиндрованное',
-            'цилиндр',
-            'профилированный брус',
-            'профилированный',
-            'профилированн'
-        ]:
-            # Пользователь согласился, узнаём для какого венца.
-            res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 15 мм либо 20 мм.'
-            return
+    if get_answers(user_id)[1] in [
+        'оцилиндрованное бревно',
+        'оцилиндрованное',
+        'цилиндр',
+        'профилированный брус',
+        'профилированный',
+        'профилированн'
+    ]:
+        # Пользователь согласился, узнаём для какого венца.
+        res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 15 мм либо 20 мм.'
+        return
 
-        try:
-            if int(float(req['request']['original_utterance'])) == 15 or int(
-                    float(req['request']['original_utterance'])) == 20:
-                # Обрабатываем ответ пользователя на числа.
-                vybor = int(float(req['request']['original_utterance']))
-                add_answers(user_id, vybor)
-                res['response'][
-                    'text'] = f'1512Венец: {get_answers(user_id)[0]}, Материал: {get_answers(user_id)[1]}, Длина: {get_answers(user_id)[2]}, Ширина: {get_answers(user_id)[3]}'
-                return
-        except ValueError:
-            res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 15 мм либо 20 мм.'
+    try:
+        if int(float(req['request']['original_utterance'])) == 15 or int(
+                float(req['request']['original_utterance'])) == 20:
+            # Обрабатываем ответ пользователя на числа.
+            vybor = int(float(req['request']['original_utterance']))
+            add_answers(user_id, vybor)
+            res['response'][
+                'text'] = f'1512Венец: {get_answers(user_id)[0]}, Материал: {get_answers(user_id)[1]}, Длина: {get_answers(user_id)[2]}, Ширина: {get_answers(user_id)[3]}'
             return
+    except ValueError:
+        res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 15 мм либо 20 мм.'
+        return
 
-        try:
-            if int(float(req['request']['original_utterance'])) == 10 or int(
-                    float(req['request']['original_utterance'])) == 20 or int(
-                float(req['request']['original_utterance'])) == 30:
-                # Обрабатываем ответ пользователя на числа.
-                vybor = int(float(req['request']['original_utterance']))
-                add_answers(user_id, vybor)
-                res['response'][
-                    'text'] = f'102030 Венец: {get_answers(user_id)[0]}, Материал: {get_answers(user_id)[1]}, Длина: {get_answers(user_id)[2]}, Ширина: {get_answers(user_id)[3]}'
-                return
-        except ValueError:
-            res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
+    try:
+        if int(float(req['request']['original_utterance'])) == 10 or int(
+                float(req['request']['original_utterance'])) == 20 or int(
+            float(req['request']['original_utterance'])) == 30:
+            # Обрабатываем ответ пользователя на числа.
+            vybor = int(float(req['request']['original_utterance']))
+            add_answers(user_id, vybor)
+            res['response'][
+                'text'] = f'102030 Венец: {get_answers(user_id)[0]}, Материал: {get_answers(user_id)[1]}, Длина: {get_answers(user_id)[2]}, Ширина: {get_answers(user_id)[3]}'
             return
+    except ValueError:
+        res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
+        return
 
     # # Если нет, то убеждаем его купить слона!
     # res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
