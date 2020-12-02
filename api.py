@@ -96,7 +96,7 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Рубленное бревно', 'Оцилиндрованное бревно', 'Клееный брус', 'Профилированный брус'])
         return
 
-    if step(user_id) == 1:
+    elif step(user_id) == 1:
         # Обрабатываем ответ пользователя на последующие венцы.
         if req['request']['original_utterance'].lower() in [
             'рубленное бревно',
