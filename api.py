@@ -329,7 +329,3 @@ def get_answers(user_id):
 #             return session['step']
 #     except ValueError:
 #         return
-
-
-if __name__ == '__main__':
-    app.run()
