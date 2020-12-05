@@ -133,7 +133,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    if steps == 2 and message in [
+    elif steps == 2 and message in [
         'для последующих венцов',
         'для последующих',
         'последующих',
