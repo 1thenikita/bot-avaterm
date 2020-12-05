@@ -67,7 +67,7 @@ def handle_dialog(req, res):
     message = req['request']['original_utterance'].lower()
 
     # Обрабатываем ответ пользователя на нет.
-    if message in [
+    if steps == 0 and message in [
         'нет',
         'не нужн',
         'не надо'
@@ -75,11 +75,12 @@ def handle_dialog(req, res):
         # Пользователь отказался, попытка номер 2
         res['response'][
             'text'] = 'Хорошо, в таком случае – я буду рядом и помогу Вам на этапах оформления покупки и доставки.\n\nЗдравствуйте! Вам нужна помощь при выборе межвенцового утеплителя?\n\nВозможные варианты ответа: Да и Нет'
+        steps = 1
         # res['response']['buttons'] = get_suggests(user_id, ['Да', 'Нет'])
         return
 
     # Обрабатываем ответ пользователя на да.
-    if req['request']['original_utterance'].lower() in [
+    if steps == 1 and message in [
         'да',
         'нужн',
         'необходим',
