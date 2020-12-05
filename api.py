@@ -78,7 +78,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на да.
-    if message in [
+    elif message in [
         'да',
         'нужн',
         'необходим',
@@ -91,7 +91,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    if steps == 1 and message in [
+    elif steps == 1 and message in [
         'рубленное бревно',
         'оцилиндрованное бревно',
         'клееный брус',
@@ -113,7 +113,7 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Для первого венца', 'Для последующих венцов'])
         return
 
-    if steps == 2 and message in [
+    elif steps == 2 and message in [
         'для первого венца',
         'для первого',
         'первый венец',
@@ -149,7 +149,8 @@ def handle_dialog(req, res):
         res['response'][
             'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
         return
-
+    else:
+        res['response']['text'] = 'Повторите запрос.'
     # try:
     #     # Обрабатываем ответ пользователя на числа.
     #     dlina = int(float(req['request']['original_utterance']))
