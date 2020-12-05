@@ -53,7 +53,8 @@ def handle_dialog(req, res):
 
         sessionStorage[user_id] = {
             'suggests': [],
-            'answers': []
+            'answers': [],
+            'steps': int(10)
         }
 
         # Количество пройденных им сообщений.
@@ -63,8 +64,10 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Да', 'Нет'])
         return
 
+    message = req['request']['original_utterance'].lower()
+
     # Обрабатываем ответ пользователя на нет.
-    if req['request']['original_utterance'].lower() in [
+    if message in [
         'нет',
         'не нужн',
         'не надо'
@@ -326,3 +329,7 @@ def get_answers(user_id):
 #             return session['step']
 #     except ValueError:
 #         return
+
+
+if __name__ == '__main__':
+    app.run()
