@@ -78,7 +78,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на да.
-    elif message in [
+    if message in [
         'да',
         'нужн',
         'необходим',
@@ -91,7 +91,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    elif steps == 1 and message in [
+    if steps == 1 and message in [
         'рубленное бревно',
         'оцилиндрованное бревно',
         'клееный брус',
@@ -113,7 +113,7 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Для первого венца', 'Для последующих венцов'])
         return
 
-    if message in [
+    if steps == 2 and message in [
         'для первого венца',
         'для первого',
         'первый венец',
@@ -133,7 +133,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    if message in [
+    if steps == 2 and message in [
         'для последующих венцов',
         'для последующих',
         'последующих',
