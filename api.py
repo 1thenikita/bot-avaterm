@@ -174,7 +174,7 @@ def handle_dialog(req, res):
         return
 
     # Если выбран клееный брус
-    if get_answers(user_id)[1] in [
+    if get_answers(user_id)[0] in [
         'клееный брус',
         'клееный',
         'клеёный'
@@ -183,7 +183,7 @@ def handle_dialog(req, res):
         res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
         return
 
-    if get_answers(user_id)[1] in [
+    if get_answers(user_id)[0] in [
         'рубленное бревно',
         'рубленное',
         'рубленный',
@@ -193,7 +193,7 @@ def handle_dialog(req, res):
         res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 10 мм, 20 мм либо 30 мм.'
         return
 
-    if get_answers(user_id)[1] in [
+    if get_answers(user_id)[0] in [
         'оцилиндрованное бревно',
         'оцилиндрованное',
         'цилиндр',
