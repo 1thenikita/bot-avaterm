@@ -152,7 +152,7 @@ def handle_dialog(req, res):
 
     try:
         # Обрабатываем ответ пользователя на числа.
-        dlina = int(float(req['request']['original_utterance']))
+        dlina = int(float(req['request']['command']))
         add_answers(user_id, str(dlina))
         res['response'][
             'text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей.'
@@ -164,7 +164,7 @@ def handle_dialog(req, res):
 
     try:
         # Обрабатываем ответ пользователя на числа.
-        shirina = int(float(req['request']['original_utterance']))
+        shirina = int(float(req['request']['command']))
         add_answers(user_id, str(shirina))
         res['response']['text'] = 'Вот наиболее подходящие Вам варианты утеплителей. Выберите пожалуйста 1 вариант.'
         return
