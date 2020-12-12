@@ -159,7 +159,7 @@ def handle_dialog(req, res):
         return
     except ValueError:
         res['response'][
-            'text'] = f'{get_answers(user_id)[1]}'
+            'text'] = f'{get_answers(user_id)}'
         return
 
     try:
