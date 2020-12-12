@@ -283,9 +283,8 @@ def add_answers(user_id, answers):
     # Открываем сессию пользователя
     session = sessionStorage[user_id]
 
-    # Через цикл добавляем ответы в массив
-    for i in range(len(answers)):
-        session['answers'].append({answers[i]})
+    # Добавляем ответы в массив
+    session['answers'].append({answers})
 
     # Возвращаем ответы
     return session['answers']
