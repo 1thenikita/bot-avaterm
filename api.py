@@ -78,7 +78,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на да.
-    if message in [
+    elif message in [
         'да',
         'нужн',
         'необходим',
@@ -91,7 +91,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    if message in [
+    elif message in [
         'рубленное бревно',
         'оцилиндрованное бревно',
         'клееный брус',
@@ -113,7 +113,7 @@ def handle_dialog(req, res):
         # res['response']['buttons'] = get_suggests(user_id, ['Для первого венца', 'Для последующих венцов'])
         return
 
-    if message in [
+    elif message in [
         'для первого венца',
         'для первого',
         'первый венец',
@@ -133,7 +133,7 @@ def handle_dialog(req, res):
         return
 
     # Обрабатываем ответ пользователя на последующие венцы.
-    if message in [
+    elif message in [
         'для последующих венцов',
         'для последующих',
         'последующих',
@@ -150,7 +150,7 @@ def handle_dialog(req, res):
             'text'] = 'Введите, пожалуйста, общую длину ленты утеплителя в погонных метрах. Эту информацию Вы можете найти в проекте дома, в разделе «Спецификация материалов». Если у вас его нет, можете самостоятельно рассчитать необходимое количество, сложив длину всех брёвен в домокомплекте.'
         return
 
-    if message.isdigit() and steps == 3:
+    elif message.isdigit() and steps == 3:
         # Обрабатываем ответ пользователя на числа.
         dlina = int(float(message))
         add_answers(user_id, str(dlina))
@@ -159,7 +159,7 @@ def handle_dialog(req, res):
             'text'] = 'Введите, пожалуйста, необходимую ширину ленты утеплителя. Эту информацию Вы можете найти в проекте дома в разделе «Спецификация материалов». Если этой информации нет проекте дома, или – проект дома у Вас отсутствует – уточните информацию у Ваших строителей.'
         return
 
-    if message.isdigit() and steps == 4:
+    elif message.isdigit() and steps == 4:
         # Обрабатываем ответ пользователя на числа.
         shirina = int(float(message))
         add_answers(user_id, str(shirina))
@@ -182,7 +182,7 @@ def handle_dialog(req, res):
     #         return
 
     # Если выбран клееный брус
-    if get_answers(user_id)[0] in [
+    elif get_answers(user_id)[0] in [
         'клееный брус',
         'клееный',
         'клеёный'
@@ -191,7 +191,7 @@ def handle_dialog(req, res):
         res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 5 мм либо 8 мм.'
         return
 
-    if get_answers(user_id)[0] in [
+    elif get_answers(user_id)[0] in [
         'рубленное бревно',
         'рубленное',
         'рубленный',
