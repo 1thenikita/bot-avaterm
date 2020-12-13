@@ -201,7 +201,7 @@ def handle_dialog(req, res):
         res['response']['text'] = 'Выберите необходимую вам толщину утеплителя – 10 мм, 20 мм либо 30 мм.'
         return
 
-    if get_answers(user_id)[0] in [
+    elif get_answers(user_id)[0] in [
         'оцилиндрованное бревно',
         'оцилиндрованное',
         'цилиндр',
@@ -245,7 +245,10 @@ def handle_dialog(req, res):
     # #     req['request']['original_utterance']
     # # )
     # # # res['response']['buttons'] = get_suggests(user_id)
-
+    else:
+        # Ошибка запроса.
+        res['response']['text'] = 'Ошибка запроса.'
+        return
 
 # Функция возвращает подсказки для ответа.
 def get_suggests(user_id, _suggest):
